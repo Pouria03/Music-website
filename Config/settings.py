@@ -30,8 +30,10 @@ INSTALLED_APPS = [
 
     # my apps:
     'home.apps.HomeConfig',
+    'song.apps.SongConfig',
 
     # thiry-party apps:
+    'storages',
 ]
 
 MIDDLEWARE = [
