@@ -47,13 +47,14 @@ class Artist(models.Model):
 class Song(models.Model):
     title = models.CharField(max_length=150)
     slug = models.SlugField()
-    description = models.CharField(max_length=400)
+    description = models.CharField(max_length=400,blank=True,null=True)
     image = models.ImageField(upload_to='music/%Y/%m/%d/')
     file = models.FileField(upload_to='music/%Y/%m/%d/')
     lyrics = models.TextField()
     artist = models.ForeignKey(Artist,on_delete=models.DO_NOTHING,related_name='musics')
     created_time = models.DateTimeField(auto_now_add=True)
-    
+    category = models.ForeignKey('category',on_delete=models.DO_NOTHING,related_name='songs')
+
     def __str__(self):
         return self.title
 

@@ -12,10 +12,11 @@ class User(AbstractBaseUser):
     )
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
     is_pro = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
     objects = UserManager()
 
     def __str__(self):
@@ -31,6 +32,6 @@ class User(AbstractBaseUser):
 
     @property
     def is_staff(self):
-        return self.is_staff
+        return self.is_admin
 
 

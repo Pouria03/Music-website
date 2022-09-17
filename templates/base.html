@@ -12,10 +12,27 @@
 <body>
     {% include 'partials/navbar.html' %}
     <div class="container">
-        <br><br>
-        {% block content %}
-        {% endblock content %}
+        <div class="row">
+            <!-- main side of website -->
+            <div class="col-md-9">
+                <!--messages-->
+                {% include 'partials/messages.html' %}
+                <!--End-->
+                {% block content %}
+                {% endblock content %}
+            </div>
+            <!-- End main side of website -->
+            <!-- right side of website -->
+            <div class="col-md-3">
+                <br><br>
+                <div class="side">
+                    {% block side %}
+    
+                    {% endblock side %}
+                </div>
+            </div>
     </div>
+
     <script src="{% static 'bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

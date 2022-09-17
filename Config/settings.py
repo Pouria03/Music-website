@@ -28,12 +28,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # thiry-party apps:
+    'storages',
+    'boto3',
+
     # my apps:
     'home.apps.HomeConfig',
     'song.apps.SongConfig',
+    'accounts.apps.AccountsConfig',
 
-    # thiry-party apps:
-    'storages',
+
 ]
 
 MIDDLEWARE = [
@@ -72,8 +76,13 @@ WSGI_APPLICATION = 'Config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'MusicOnline',
+        'USER':'postgres',
+        'PASSWORD':'pouria',
+        'HOST':'127.0.0.1',
+        'PORT':'5432'
+
     }
 }
 
@@ -124,11 +133,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # storages -- ArvanCloud.com :
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.s3Boto3storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_ACCESS_KEY_ID = '9d0d0a56-c95c-4391-a85c-4286a25df38e'
 AWS_SECRET_ACCESS_KEY ='c87a1273a69f510ea72d747a661b6f8736f2255b4fccebd1a26c0a6040d8dcbe'
 AWS_S3_ENDPOINT_URL = 'https://s3.ir-thr-at1.arvanstorage.com'
-AWS_STORAGE_BUCKET_NAME = 'MusicOnline'
+AWS_STORAGE_BUCKET_NAME = 'musiconline'
 AWS_SERVICE_NAME = 's3' #optional
 AWS_S3_FILE_OVERWRITE = False #don't over write files wiht same name
 # end
