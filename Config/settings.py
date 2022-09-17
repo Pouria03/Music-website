@@ -131,3 +131,7 @@ AWS_S3_ENDPOINT_URL = 'https://s3.ir-thr-at1.arvanstorage.com'
 AWS_STORAGE_BUCKET_NAME = 'MusicOnline'
 AWS_SERVICE_NAME = 's3' #optional
 AWS_S3_FILE_OVERWRITE = False #don't over write files wiht same name
+# end
+
+# auth model
+AUTH_USER_MODEL = 'accounts.User'
