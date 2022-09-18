@@ -51,7 +51,7 @@ class Song(models.Model):
     image = models.ImageField(upload_to='music/%Y/%m/%d/')
     file = models.FileField(upload_to='music/%Y/%m/%d/')
     lyrics = models.TextField()
-    artist = models.ForeignKey(Artist,on_delete=models.DO_NOTHING,related_name='musics')
+    artist = models.ForeignKey(Artist,on_delete=models.DO_NOTHING,related_name='songs')
     created_time = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey('category',on_delete=models.DO_NOTHING,related_name='songs')
 
