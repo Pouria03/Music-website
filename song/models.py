@@ -1,7 +1,9 @@
 from tabnanny import verbose
+# from PIL import Image
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from accounts.models import User
 # ====================================================
 class Category(models.Model):
     title = models.CharField(max_length=150)
@@ -58,15 +60,29 @@ class Song(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ['-created_time']
+
     def save(self,*args,**kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+        # if self.image:
+        #     img = Image.open(self.image.path)
+        #     img.thumbnail((200,200))
+        #     img.save(self.image.path)
         return super().save(*args,**kwargs)
 
     def get_absolute_url(self):
         return reverse('song:detail',kwargs={'pk':self.pk,'slug':self.slug})
 
-    class Meta:
-        ordering = ['-created_time']
+    def get_vote_count(self):
+        return self.votes.count()
+
     
-    
+# ====================================================
+class SongVote(models.Model):
+    user = models.ForeignKey(User ,on_delete=models.DO_NOTHING,related_name='votes')
+    song = models.ForeignKey(Song ,on_delete=models.CASCADE,related_name='votes')
+
+    def __str__(self):
+        return f'{self.user} voted for {self.song.title}'

@@ -26,6 +26,7 @@ class SongAdmin(admin.ModelAdmin):
     
 # Register your models here.
 
+admin.site.register(models.SongVote)
 admin.site.register(models.Category,CategoryAdmin)
 admin.site.register(models.Song,SongAdmin)
 admin.site.register(models.Artist,ArtistAdmin)

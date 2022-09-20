@@ -8,8 +8,19 @@
             <h5>song lyrics :</h5>
             {{song.lyrics}}
         </div>
+        {% if song.file %}
         <audio controls>
             <source src="{{song.file.url}}" type="audio/mp3">
         </audio>
+        {% endif %}
     </div>
 {% endblock %}
+{% block side %}
+    {% if user.is_authenticated %}
+    <div>
+        vote song:
+        <a href="{% url 'song:vote' song.id %}">Like {{song.get_vote_count}} </a>
+    </div>
+    {% endif %}
+{% endblock side %}
+

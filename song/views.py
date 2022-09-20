@@ -1,7 +1,8 @@
+from django.contrib import messages
 from django.shortcuts import render,redirect,get_object_or_404
 from django.db.models import Q
 from django.views import View
-from .models import Song,Artist,Category
+from .models import Song,Artist,Category,SongVote
 # Create your views here.
 
 class SongListView(View):
@@ -51,5 +52,20 @@ class GetArtistView(View):
         return render(request,self.template_name,context)
 
 
+class VoteView(View):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('song:list')
+        return super().dispatch(request, *args, **kwargs)
 
-
+    def get(self,request,song_id):
+        song = Song.objects.get(id=song_id)
+        vote = SongVote.objects.filter(user=request.user ,song=song)
+        if vote.exists():
+            vote.delete()
+            messages.success(request,'you unvoted the song','success')
+            return redirect('song:detail',song.id,song.slug)
+        elif not vote.exists():
+            SongVote.objects.create(user=request.user,song=song).save()
+            messages.success(request,'you voted the song','success')
+        return redirect('song:detail',song.id,song.slug)
