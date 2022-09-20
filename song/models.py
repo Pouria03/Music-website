@@ -49,7 +49,7 @@ class Song(models.Model):
     slug = models.SlugField()
     description = models.CharField(max_length=400,blank=True,null=True)
     image = models.ImageField(upload_to='music/%Y/%m/%d/')
-    file = models.FileField(upload_to='music/%Y/%m/%d/')
+    file = models.FileField(upload_to='music/%Y/%m/%d/',blank=True,null=True)
     lyrics = models.TextField()
     artist = models.ForeignKey(Artist,on_delete=models.DO_NOTHING,related_name='songs')
     created_time = models.DateTimeField(auto_now_add=True)
