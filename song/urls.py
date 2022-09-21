@@ -8,6 +8,7 @@ urlpatterns = [
     path('artists/',views.ArtistListView.as_view(),name='artists'),
     path('artist/<slug:slug>/',views.GetArtistView.as_view(),name='artist'),
     path('vote/<int:song_id>/',views.VoteView.as_view(),name='vote'),
+    path('comming-soon/',views.CommingSoonSongsView.as_view(),name='comming-soon')
     # path('category/<slug:slug>/'views.GetCategoryView.as_view(),name='category')
     
 ]

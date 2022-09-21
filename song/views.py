@@ -1,8 +1,9 @@
 from django.contrib import messages
-from django.shortcuts import render,redirect,get_object_or_404
 from django.db.models import Q
+from django.shortcuts import render,redirect,get_object_or_404
 from django.views import View
 from .models import Song,Artist,Category,SongVote
+from utils import search
 # Create your views here.
 
 class SongListView(View):
@@ -10,11 +11,7 @@ class SongListView(View):
     page_title = 'songs'
     def get(self,request):
         songs = Song.objects.all()
-        if request.GET.get('search'):
-            q = request.GET.get('search')
-            songs = songs.filter( Q(title__icontains=q)
-             | Q(lyrics__icontains=q) 
-             | Q(artist__name__icontains=q))
+        songs = search.search(request,queryset=songs)
         context = {'songs':songs,'page_title':self.page_title}
         return render(request,self.template_name,context)
     # todo : paggination
@@ -34,11 +31,7 @@ class ArtistListView(View):
     page_title = 'artists'
     def get(self,request):
         artists = Artist.objects.all()
-
-        if request.GET.get('search'):
-            q = request.GET.get('search')
-            artists = artists.filter(name__icontains=q)
-            
+        artists = search.search(request,queryset=artists)            
         context = {'artists': artists,'page_title':self.page_title}
         return render(request,self.template_name,context)
 
@@ -69,3 +62,17 @@ class VoteView(View):
             SongVote.objects.create(user=request.user,song=song).save()
             messages.success(request,'you voted the song','success')
         return redirect('song:detail',song.id,song.slug)
+
+
+class CommingSoonSongsView(View):
+    template_name = 'song/commingsoon.html'
+    def get(self,request):
+        comming_soon_songs = Song.objects.filter( Q(file='') | Q(file__isnull=True))
+        comming_soon_songs = search.search(request,queryset=comming_soon_songs)
+        context= {'comming_soon_songs':comming_soon_songs}
+        return render(request,self.template_name,context)
+
+
+
+
+        
