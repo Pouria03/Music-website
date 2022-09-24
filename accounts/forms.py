@@ -68,3 +68,7 @@ class RegisterUserForm(forms.Form):
             raise ValidationError('password must be morethan 4 characters')
         
 
+class UserLoginForm(forms.Form):
+    email = forms.EmailField()
+    password = forms.CharField(widget=forms.PasswordInput())
+    
