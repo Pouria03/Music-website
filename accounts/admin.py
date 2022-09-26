@@ -14,10 +14,12 @@ class UserAdmin(BaseUserAdmin):
     list_display = ('email','is_admin','is_pro')
     list_filter = ('is_admin','is_pro')
     search_fields = ('email',)
+    readonly_fields = ('last_login',)
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Permissions', {'fields': ('is_admin','is_pro')}),
+        ('Permissions',
+         {'fields': ('is_admin','is_pro','is_superuser','last_login','groups','user_permissions')}),
     )
 
     add_fieldsets = (
@@ -27,10 +29,9 @@ class UserAdmin(BaseUserAdmin):
         }),
     )
     ordering = ('email',)
-    filter_horizontal = ()
+    filter_horizontal = ('groups','user_permissions')
     
 admin.site.register(User,UserAdmin)
-admin.site.unregister(Group)
 
 admin.site.site_header = 'MusicOnline | administrator'
 # admin.site.site_title = ' Dashbord '

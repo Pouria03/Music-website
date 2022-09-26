@@ -4,6 +4,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.views import View
 from .models import Song,Artist,Category,SongVote
 from utils import search
+from accounts.models import User
 # Create your views here.
 
 class SongListView(View):
@@ -76,3 +77,13 @@ class CommingSoonSongsView(View):
 
 
         
+class ProUsersClass(View):
+    template_name = 'song/pro_users.html'
+    def dispatch(self, request, *args, **kwargs):
+        users = User.objects.filter(groups__name='premium_users')
+        if not request.user in users :
+            messages.warning(request,'BANN','warning')
+            return redirect('home:home')
+        return super().dispatch(request, *args, **kwargs)
+    def get(self,request):
+        return render(request,self.template_name)

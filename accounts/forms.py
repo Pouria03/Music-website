@@ -72,3 +72,6 @@ class UserLoginForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput())
     
+
+class GetPremiumForm(forms.Form):
+    paied = forms.BooleanField()

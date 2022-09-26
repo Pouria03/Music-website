@@ -1,11 +1,11 @@
-from re import TEMPLATE
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.views import View
 from django.contrib.auth import authenticate,login,logout
-from .forms import RegisterUserForm, UserLoginForm
+from .forms import RegisterUserForm, UserLoginForm,GetPremiumForm
 from .models import User
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import Group
 
 
 # Create your views here.
@@ -22,10 +22,8 @@ class UserRegisterView(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            User.objects.create_user(email=data['email'].strip()
-            ,password=make_password(data['password1']))
-            # 
-            # permissions and group and accesses
+            User.objects.create_user(email=data['email']
+            ,password=data['password1'])
             messages.success(request,'your account successfully created . please LOG IN')
             return redirect('accounts:login')
         return render(request,self.template_name,{'form':form})
@@ -68,3 +66,21 @@ class UserLogoutView(View):
         logout(request)
         messages.success(request,'you successfully logged out','success')
         return redirect('home:home')
+
+
+class GetPremiumClass(View):
+    template_name = 'accounts/get_premium.html'
+    form_class = GetPremiumForm
+    def get(self,request):
+        form = self.form_class
+        return render(request,self.template_name,{'form':form})
+    def post(self,request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            user = request.user
+            premium_users = Group.objects.get(name='premium_users') 
+            premium_users.user_set.add(user)
+            user.admin = True
+            messages.success(request,'you are a premium user now!! enjoy','success')
+            return redirect('home:home')
+        return render(request,self.template_name,{'form':form})

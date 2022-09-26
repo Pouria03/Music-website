@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="get pro" class="btn btn-sm btn-warning">
+</form>
+{% endblock %}
