@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <b class="bg-info">WELLCOME ! '{{request.user}}' </b>
+    <h4 class="text-warning">{{is_pro}}</h4>
+    <hr>
+    <b>favorite songs</b>
+    <ul>
+    {% for favorite in favorites %}
+        <li>
+            <a href="{{favorite.song.get_absolute_url}}">{{favorite.song}}</a>    
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock content %}

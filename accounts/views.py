@@ -6,8 +6,9 @@ from .forms import RegisterUserForm, UserLoginForm,GetPremiumForm
 from .models import User
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Group
-
-
+from song.models import SongVote,Song
+# 
+# 
 # Create your views here.
 
 class UserRegisterView(View):
@@ -27,8 +28,8 @@ class UserRegisterView(View):
             messages.success(request,'your account successfully created . please LOG IN')
             return redirect('accounts:login')
         return render(request,self.template_name,{'form':form})
-
-
+# 
+# 
 class UserLoginView(View):
     template_name = 'accounts/login.html'
     form_class    = UserLoginForm
@@ -55,7 +56,8 @@ class UserLoginView(View):
                 messages.warning(request,'this email or password is not valid','warning')
                 return render(request,self.template_name,{'form':form})
         return render(request,self.template_name,{'form':form})
-
+# 
+# 
 class UserLogoutView(View):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated == False:
@@ -66,8 +68,8 @@ class UserLogoutView(View):
         logout(request)
         messages.success(request,'you successfully logged out','success')
         return redirect('home:home')
-
-
+# 
+# 
 class GetPremiumClass(View):
     template_name = 'accounts/get_premium.html'
     form_class = GetPremiumForm
@@ -84,3 +86,24 @@ class GetPremiumClass(View):
             messages.success(request,'you are a premium user now!! enjoy','success')
             return redirect('home:home')
         return render(request,self.template_name,{'form':form})
+# 
+# 
+def is_pro(user):
+    users = User.objects.filter(groups__name = 'premium_users')
+    if user in users:
+        return 'you are a Pro User'
+    else:
+        return 'Get pro !'
+class ProfileView(View):
+    template_name = 'accounts/profile.html'
+
+    def get(self,request):
+        favorites = SongVote.objects.filter(user=request.user)
+        is_pro_user = is_pro(request.user)
+        context={
+            'favorites':favorites,
+            'is_pro': is_pro_user
+        }
+        return render(request,self.template_name,context)
+    
+
