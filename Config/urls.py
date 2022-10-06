@@ -20,6 +20,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('home.urls')),
     path('',include('song.urls')),
-    path('',include('accounts.urls'))
-    # path('account/',include('accounts.urls'))
+    path('',include('accounts.urls')),
+
+    # APIs
+    path('api/',include('home.api.urls')),
+    path('api/',include('song.api.urls')),
 ]

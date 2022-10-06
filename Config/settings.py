@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     # thiry-party apps:
     'storages',
     'boto3',
+    'rest_framework',
 
     # my apps:
     'home.apps.HomeConfig',
@@ -145,3 +146,10 @@ AWS_S3_FILE_OVERWRITE = False #don't over write files wiht same name
 
 # auth model
 AUTH_USER_MODEL = 'accounts.User'
+
+# api default settings:
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
