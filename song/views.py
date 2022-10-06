@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.db.models import Q
+from django.core.paginator import Paginator
 from django.shortcuts import render,redirect,get_object_or_404
 from django.views import View
 from .models import Song,Artist,Category,SongVote
@@ -10,10 +11,15 @@ from accounts.models import User
 class SongListView(View):
     template_name ='song/list.html'
     page_title = 'songs'
-    def get(self,request):
+    def get(self,request,page=1):
         songs = Song.objects.all()
         songs = search.search(request,queryset=songs)
-        context = {'songs':songs,'page_title':self.page_title}
+        # paggination
+        paginator = Paginator(songs,6)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        # end of paggination
+        context = {'songs':page_obj,'page_title':self.page_title}
         return render(request,self.template_name,context)
     # todo : paggination
 
@@ -32,8 +38,13 @@ class ArtistListView(View):
     page_title = 'artists'
     def get(self,request):
         artists = Artist.objects.all()
-        artists = search.search(request,queryset=artists)            
-        context = {'artists': artists,'page_title':self.page_title}
+        artists = search.search(request,queryset=artists)
+        # paggination
+        paginator = Paginator(artists,6)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        # end of paggination          
+        context = {'artists': page_obj,'page_title':self.page_title}
         return render(request,self.template_name,context)
 
 class GetArtistView(View):

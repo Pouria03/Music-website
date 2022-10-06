@@ -5,6 +5,24 @@
             {% for song in songs %}
                 {% include 'partials/item_card.html' with value=song %}
             {% endfor %}
+            <!-- paggination -->
+            <nav aria-label="...">
+                <ul class="pagination">
+                {% if songs.has_previous  %}
+                  <li class="page-item"><a class="page-link" href="?page={{songs.previous_page_number}}">
+                    {{songs.previous_page_number}}</a></li>
+                {% endif %}
+                
+                  <li class="page-item active">
+                    <a class="page-link" href="#">{{songs.number}}</a>
+                  </li>
+                {% if songs.has_next %}
+                  <li class="page-item"><a class="page-link" href="?page={{songs.next_page_number}}">
+                    {{songs.next_page_number}}</a></li>
+                {% endif %}
+                </ul>
+              </nav>
+            <!-- end of paggination -->
         </div>
 {% endblock %}
 

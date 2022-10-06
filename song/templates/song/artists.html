@@ -8,4 +8,24 @@
             </a>
         </div>
     {% endfor %}
+    <div>
+                    <!-- paggination -->
+            <nav aria-label="...">
+                <ul class="pagination">
+                {% if artists.has_previous  %}
+                  <li class="page-item"><a class="page-link" href="?page={{artists.previous_page_number}}">
+                    {{artists.previous_page_number}}</a></li>
+                {% endif %}
+                
+                  <li class="page-item active">
+                    <a class="page-link" href="#">{{artists.number}}</a>
+                  </li>
+                {% if artists.has_next %}
+                  <li class="page-item"><a class="page-link" href="?page={{artists.next_page_number}}">
+                    {{artists.next_page_number}}</a></li>
+                {% endif %}
+                </ul>
+              </nav>
+            <!-- end of paggination -->
+    </div>
 {% endblock content %}
