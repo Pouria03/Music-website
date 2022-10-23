@@ -1,4 +1,6 @@
 from django.contrib.auth.models import BaseUserManager
+from django.contrib.auth.models import Group
+# 
 
 class UserManager(BaseUserManager):
 
@@ -32,5 +34,7 @@ class UserManager(BaseUserManager):
             password=password
         )
         user.is_pro = True
+        premium_users = Group.objects.get(name='premium_users') 
+        premium_users.user_set.add(user)
         user.save(using=self._db)
         return user
