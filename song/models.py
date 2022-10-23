@@ -1,3 +1,4 @@
+from email.policy import default
 from tabnanny import verbose
 # from PIL import Image
 from django.db import models
@@ -56,6 +57,7 @@ class Song(models.Model):
     artist = models.ForeignKey(Artist,on_delete=models.DO_NOTHING,related_name='songs')
     created_time = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey('category',on_delete=models.DO_NOTHING,related_name='songs')
+    link = models.CharField(max_length=90,default='')
 
     def __str__(self):
         return self.title

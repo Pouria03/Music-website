@@ -94,7 +94,7 @@ class ProUsersClass(View):
         users = User.objects.filter(groups__name='premium_users')
         if not request.user in users :
             messages.warning(request,'BANN','warning')
-            return redirect('home:home')
+            return redirect('home:home')    
         return super().dispatch(request, *args, **kwargs)
     def get(self,request):
         return render(request,self.template_name)

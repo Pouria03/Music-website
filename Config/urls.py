@@ -14,7 +14,9 @@ urlpatterns = [
 
     # APIs
     path('api/',include('home.api.urls')),
-    path('api/',include('song.api.urls')),
+    path('api/song/',include('song.api.urls')),
+    path('api/',include('accounts.api.urls')),
+
 
     # JWT
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
