@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'storages',
     'boto3',
     'rest_framework',
+    'drf_spectacular',
 
     # my apps:
     'home.apps.HomeConfig',
@@ -151,5 +152,15 @@ AUTH_USER_MODEL = 'accounts.User'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
-    ]
+    ],
+      'DEFAULT_SCHEMA_CLASS' : 'drf_spectacular.openapi.AutoSchema',
+
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'OnlineMusic',
+    'DESCRIPTION': 'this project is to listen songs and download for free',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
 }
