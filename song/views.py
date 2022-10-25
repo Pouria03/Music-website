@@ -1,3 +1,5 @@
+from multiprocessing import context
+from re import template
 from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator
@@ -7,6 +9,16 @@ from .models import Song,Artist,Category,SongVote
 from utils import search
 from accounts.models import User
 # Create your views here.
+
+
+class GetCategorySongs(View):
+    template_name = 'song/category.html'
+    def get(self,request,slug):
+        category = Category.objects.get(slug=slug)
+        songs = category.songs.all()
+        context = {'related_songs':songs,
+        'category':category.title}
+        return render(request,self.template_name,context)
 
 class SongListView(View):
     template_name ='song/list.html'

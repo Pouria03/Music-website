@@ -15,7 +15,7 @@ class ContactUsView(View):
     form_class = forms.ContactUsForm
     
     def dispatch(self, request, *args, **kwargs) :
-        if request.user.is_authenticated:
+        if not request.user.is_authenticated:
             messages.warning(request,'you must login to your account','warning')
             return redirect('home:home')
         return super().dispatch(request, *args, **kwargs)

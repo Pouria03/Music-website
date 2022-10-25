@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div>
+        <h4> songs in category of ''{{category}}'</h4>
+        <ul>
+        {% for song in related_songs %}
+            <li>
+                <a href="{{song.get_absolute_url}}">{{song.title}}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+
