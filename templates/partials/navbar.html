@@ -52,11 +52,13 @@
 <!-- end -->
 </ul>
 <!-- search -->
-    
-    <form method="get" novalidate>
-     | {{search_form}}
-      <input type="submit" value="search">
-    </form>
+{% if 'songs' in request.path or 'artists' in request.path %}
+<form method="get" novalidate>
+  | {{search_form}}
+   <input type="submit" value="search">
+ </form>
+{% endif %}
+
   </div>
 </nav>
 <!-- end search -->
