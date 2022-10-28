@@ -3,6 +3,9 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+  <!-- songs -->
+  <a href="{% url 'song:list' %}" class="nav-link">songs</a>
+<!-- end songs -->
 <!-- dropdown -->
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
@@ -17,6 +20,23 @@
         </div>
       </li>
 <!-- end dropdown -->
+<!-- dropdown2 -->
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        More
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a href="{% url 'song:artists' %}" class="nav-link">artists</a>
+          <a href="{% url 'song:comming-soon' %}" class="nav-link">comming soon</a>
+        
+        <!-- contact us -->
+          <a href="{% url 'home:contact-us' %}" class="nav-link">Contact Us</a>
+        <!-- end -->
+      </div>
+    </li>
+<!-- end dropdown2 -->
 
 <!-- auth -->
 {% if user.is_authenticated %}
@@ -33,32 +53,16 @@
 {% endif %}
 <!-- end auth -->
 
-<!-- songs -->
-<li class="nav-item">
-  <a href="{% url 'song:list' %}" class="nav-link">songs</a>
-</li>
-<li class="nav-item">
-  <a href="{% url 'song:artists' %}" class="nav-link">artists</a>
-</li>
-<li class="nav-item">
-  <a href="{% url 'song:comming-soon' %}" class="nav-link">comming soon</a>
-</li>
-<!-- end songs -->
 
-<!-- contact us -->
-<li class="nav-item">
-  <a href="{% url 'home:contact-us' %}" class="nav-link">Contact Us</a>
-</li>
-<!-- end -->
+
 </ul>
 <!-- search -->
-{% if 'songs' in request.path or 'artists' in request.path %}
-<form method="get" novalidate>
-  | {{search_form}}
-   <input type="submit" value="search">
- </form>
-{% endif %}
+    {% if 'songs' in request.path or 'artists' in request.path %}
+      <form method="get" novalidate>
+          | {{search_form}}
+          <input type="submit" value="search">
+      </form>
+    {% endif %} 
+  <!-- end search -->
 
-  </div>
 </nav>
-<!-- end search -->

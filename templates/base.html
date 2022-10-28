@@ -11,9 +11,11 @@
     <title>MusicOnline</title>
 </head>
 <body>
-    {% include 'partials/navbar.html' %}
     <div class="container">
         <div class="row">
+            <!-- navbar -->
+            {% include 'partials/navbar.html' %}
+            <!-- end navbar -->
             <!-- main side of website -->
             <div class="col-md-9 main" >
                 <!--messages-->
@@ -24,11 +26,20 @@
             </div>
             <!-- End main side of website -->
             <!-- right side of website -->
-            <div class="col-md-3 side">
-                <br><br>
+            <div class="col-md-3 side ">
                 <div>
                     {% block side %}
-                        <div class="">SIDE SECTION OF WEBSITE </div>
+                    {% if request.user.is_authenticated %}
+                        <div class="p-3">
+                            <a href="{% url 'accounts:profile' %}" class="btn btn-sm btn-warning">
+                                see your favorite songs!
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="p-3">
+                            <a href="{% url 'accounts:login' %}">login!</a>
+                        </div>
+                    {% endif %}
                     {% endblock side %}
                 </div>
             </div>

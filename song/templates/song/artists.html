@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="d-flex flex-row"> 
+
     {% for artist in artists %}
-        <div class="card col-4">
-            <a href="{{artist.get_absolute_url}}">
-                <h4 class="card-body">{{artist.name}}</h4>
-            </a>
+        <div class="card col-3">
+          <a href="{{artist.get_absolute_url}}">
+              <h4 class="card-body">{{artist.name}}</h4>
+          </a>
         </div>
     {% endfor %}
+  </div>
+
     <div>
                     <!-- paggination -->
             <nav aria-label="...">

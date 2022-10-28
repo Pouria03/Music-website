@@ -1,5 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div>hello to music world</div>
+    <div>
+
+        <br>
+        <div class="d-flex justify-content-end">
+            <div class="card" style=" background-color: burlywood;">
+                <div class="card-body">
+                  <h5 class="card-title text-white">WellCome to
+                     <a href="{% url 'home:home' %}">OnlineMusic<a>
+                     World ! ! !</h5>
+                </div>
+            </div>
+        </div>
+
+
+        <br>
+        <div class="d-flex justify-content-center">
+                <div class="card" style="background-color: black;">
+                    <div class="card-body">
+                    <h5 class="card-title text-white">
+                        listen to all <a href="{% url 'song:list' %}">Songs</a> for free ! ! ! 
+                    </h5>
+                    
+                    </div>
+                </div>
+        </div>
+
+        <br>
+        <div class="card" style="background-color: wheat;">
+            <div class="card-body">
+              <h5 class="card-title text-black text-center">see all categories</h5>
+            </div>
+        </div>
+        
+        <br>
+        <div class="d-flex justify-content-start">
+            <div class="card" style="background-color: black;">
+                <div class="card-body">
+                <h5 class="card-title text-white">request your music</h5>
+                <a href="{% url 'home:contact-us' %}">contact us !</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock content %}
