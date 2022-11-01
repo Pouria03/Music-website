@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="d-flex flex-row"> 
     {% for song in comming_soon_songs %}
         {% include 'partials/item_card.html' with value=song %}
     {% endfor %}
+</div>
 {% endblock %}

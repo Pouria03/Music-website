@@ -1,21 +1,25 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{% url 'home:home' %}">OnlineMusic</a>
+<nav class="navbar navbar-expand-lg p-3">
+  <a class="navbar-brand text-white" href="{% url 'home:home' %}">OnlineMusic</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <!-- songs -->
-  <a href="{% url 'song:list' %}" class="nav-link">songs</a>
+  <a href="{% url 'song:list' %}" class="nav-link text-white">songs</a>
 <!-- end songs -->
 <!-- dropdown -->
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Categories
+        <a class="nav-link dropdown-toggle text-light" href="#" 
+            id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+             aria-expanded="false">
+            Categories
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           {% for category in categories %}
-              <a class="dropdown-item" href="{% url 'song:category-related-songs' category.slug %}">{{category.title}}</a>
+              <a class="dropdown-item" href="{% url 'song:category-related-songs' category.slug %}">
+                {{category.title}}
+              </a>
           {% endfor %}
         </div>
       </li>
@@ -24,32 +28,41 @@
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
   <ul class="navbar-nav mr-auto">
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+      <a class="nav-link dropdown-toggle text-warning" href="#" id="navbarDropdown" 
+          role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         More
       </a>
+
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a href="{% url 'song:artists' %}" class="nav-link">artists</a>
-          <a href="{% url 'song:comming-soon' %}" class="nav-link">comming soon</a>
+          <a href="{% url 'song:comming-soon' %}" class="nav-link">up comming songs</a>
         
         <!-- contact us -->
           <a href="{% url 'home:contact-us' %}" class="nav-link">Contact Us</a>
-        <!-- end -->
+        <!-- end contactUs -->
+
+        <!-- api -->
+        <a href="{% url 'swagger-ui' %}" class="nav-link">API</a>
+        <!-- end api -->
       </div>
     </li>
 <!-- end dropdown2 -->
 
 <!-- auth -->
 {% if user.is_authenticated %}
-<li class="nav-item">
-  <a href="{% url 'accounts:logout' %}" class="nav-link">log-out</a>
-</li>
-{% else %}
-<li class="nav-item">
-  <a href="{% url 'accounts:signup' %}" class="nav-link">signUp</a>
-</li>
-<li class="nav-item">
-  <a href="{% url 'accounts:login' %}" class="nav-link">login</a>
-</li>
+<div class="d-flex justify-content-end">
+  <li class="nav-item">
+    <a href="{% url 'accounts:logout' %}" class="nav-link text-danger">log-out</a>
+  </li>
+  {% else %}
+  <li class="nav-item">
+    <a href="{% url 'accounts:signup' %}" class="nav-link text-light">signUp</a>
+  </li>
+  <li class="nav-item">
+    <a href="{% url 'accounts:login' %}" class="nav-link text-light">login</a>
+  </li>
+</div>
 {% endif %}
 <!-- end auth -->
 
@@ -60,7 +73,7 @@
     {% if 'songs' in request.path or 'artists' in request.path %}
       <form method="get" novalidate>
           | {{search_form}}
-          <input type="submit" value="search">
+          <input type="submit" value="search" class="btn btn-sm btn-outline-light">
       </form>
     {% endif %} 
   <!-- end search -->

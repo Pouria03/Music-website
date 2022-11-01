@@ -18,8 +18,11 @@
 {% block side %}
     {% if user.is_authenticated %}
     <div>
-        vote song:
-        <a href="{% url 'song:vote' song.id %}">Like {{song.get_vote_count}} </a>
+        <b class="text-light">vote song:</b>
+        <a href="{% url 'song:vote' song.id %}" style="text-decoration-line: none;" 
+        class="btn btn-xs btn-outline-info">
+            Like ({{song.get_vote_count}}) 
+         </a>
     </div>
     {% endif %}
 {% endblock side %}

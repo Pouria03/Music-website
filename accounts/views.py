@@ -70,7 +70,7 @@ class UserLogoutView(View):
         return redirect('home:home')
 # 
 # 
-class GetPremiumClass(View):
+class GetPremiumView(View):
     template_name = 'accounts/get_premium.html'
     form_class = GetPremiumForm
     def get(self,request):
@@ -83,6 +83,7 @@ class GetPremiumClass(View):
             premium_users = Group.objects.get(name='premium_users') 
             premium_users.user_set.add(user)
             user.admin = True
+            user.is_pro = True
             messages.success(request,'you are a premium user now!! enjoy','success')
             return redirect('home:home')
         return render(request,self.template_name,{'form':form})

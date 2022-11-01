@@ -8,8 +8,10 @@ from song.api.serializers import SongVoteSerializer
 # 
 
 class SignUpApi(APIView):
+    ''' register user in system '''
+    serializer_class = SignUpApiSerializer
     def post(self,request):
-        srz_data = SignUpApiSerializer(data=request.data)
+        srz_data = self.serializer_class(data=request.data)
         if srz_data.is_valid():
             srz_data.save()
             return Response(data=srz_data.data,status=status.HTTP_201_CREATED)
@@ -17,7 +19,10 @@ class SignUpApi(APIView):
 
 
 class ProfileApi(APIView):
+    ''' user's favorite songs '''
+    serializer_class = SongVoteSerializer
     def get(self,request):
         fav_songs = SongVote.objects.filter(user=request.user)
-        srz_data = SongVoteSerializer(fav_songs,many=True)
-        return Response(data=srz_data.data)
+        srz_data = self.serializer_class(fav_songs,many=True)
+        return Response(data=srz_data.data,status=status.HTTP_200_OK)
+

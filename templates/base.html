@@ -29,15 +29,21 @@
             <div class="col-md-3 side ">
                 <div>
                     {% block side %}
+                    <div class="p-3">
+                        <a href="{% url 'song:prousers' %}" class="btn btn-sm btn-primary">premium section!</a>
+                    </div>
                     {% if request.user.is_authenticated %}
                         <div class="p-3">
                             <a href="{% url 'accounts:profile' %}" class="btn btn-sm btn-warning">
                                 see your favorite songs!
                             </a>
+                            <hr>
+
                         </div>
                     {% else %}
                         <div class="p-3">
                             <a href="{% url 'accounts:login' %}">login!</a>
+
                         </div>
                     {% endif %}
                     {% endblock side %}

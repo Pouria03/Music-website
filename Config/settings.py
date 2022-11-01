@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'boto3',
     'rest_framework',
     'drf_spectacular',
+    'crispy_forms',
 
     # my apps:
     'home.apps.HomeConfig',
@@ -165,3 +166,5 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
     # OTHER SETTINGS
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
