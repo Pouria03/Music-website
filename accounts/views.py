@@ -7,6 +7,7 @@ from .models import User
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Group
 from song.models import SongVote,Song
+from django.contrib.auth.mixins import LoginRequiredMixin
 # 
 # 
 # Create your views here.
@@ -70,7 +71,7 @@ class UserLogoutView(View):
         return redirect('home:home')
 # 
 # 
-class GetPremiumView(View):
+class GetPremiumView(LoginRequiredMixin,View):
     template_name = 'accounts/get_premium.html'
     form_class = GetPremiumForm
     def get(self,request):

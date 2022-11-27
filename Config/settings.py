@@ -168,3 +168,4 @@ SPECTACULAR_SETTINGS = {
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+LOGIN_URL = '/login/'
